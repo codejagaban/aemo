@@ -1,68 +1,85 @@
-/* ---------------------------------------------
- Contact form
- --------------------------------------------- */
-$(document).ready(function(){
-    $("#submit_btn").click(function(){
-        
-        //get input field values
-        var user_name = $('input[name=name]').val();
-        var user_email = $('input[name=email]').val();
-        var user_message = $('textarea[name=message]').val();
-        
-        //simple validation at client's end
-        //we simply change border color to red if empty field using .css()
-        var proceed = true;
-        if (user_name == "") {
-            $('input[name=name]').css('border-color', '#e41919');
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("contact_form");
+
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        // Get input field values
+        const user_name = document.querySelector('input[name=name]').value;
+        const user_email = document.querySelector('input[name=email]').value;
+        const user_message = document.querySelector('textarea[name=message]').value;
+        const selected_service = document.querySelector('select[name=services]').value; // New select field
+
+        // Simple validation
+        let proceed = true;
+        if (user_name === "") {
+            document.querySelector('input[name=name]').style.borderColor = '#e41919';
             proceed = false;
         }
-        if (user_email == "") {
-            $('input[name=email]').css('border-color', '#e41919');
+        if (user_email === "") {
+            document.querySelector('input[name=email]').style.borderColor = '#e41919';
             proceed = false;
         }
-        
-        if (user_message == "") {
-            $('textarea[name=message]').css('border-color', '#e41919');
+        if (user_message === "") {
+            document.querySelector('textarea[name=message]').style.borderColor = '#e41919';
             proceed = false;
         }
-        
-        //everything looks good! proceed...
+        if (selected_service === "") { // Check if a service is selected
+            document.querySelector('select[name=services]').style.borderColor = '#e41919';
+            proceed = false;
+        }
+
+        // Proceed if validation passes
         if (proceed) {
-            //data to be sent to server
-            post_data = {
-                'userName': user_name,
-                'userEmail': user_email,
-                'userMessage': user_message
+            const formData = {
+                access_key: "14ec3192-f7bf-40ce-9535-bbc21accae1e", // Replace this with your actual access key
+                userName: user_name,
+                userEmail: user_email,
+                userMessage: user_message,
+                selectedService: selected_service, // Add selected service to form data
             };
-            
-            //Ajax post data to server
-            $.post('php/contact_me.php', post_data, function(response){
-            
-                //load json data from server and output message     
-                if (response.type == 'error') {
-                    output = '<div class="error">' + response.text + '</div>';
+
+            try {
+                // Send form data using fetch
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                const result = await response.json();
+                let output = "";
+
+                if (response.status === 200 && result.success) {
+                    // Success response
+                    output = '<div class="success">Thank you for your message. We will reply to you shortly!</div>';
+                    // Reset the form fields
+                    form.reset();
+                } else {
+                    // Error response
+                    output = `<div class="error">${result.message || "Something went wrong!"}</div>`;
                 }
-                else {
-                
-                    output = '<div class="success">' + response.text + '</div>';
-                    
-                    //reset values in all input fields
-                    $('#contact_form input').val('');
-                    $('#contact_form textarea').val('');
-                }
-                
-                $("#result").hide().html(output).slideDown();
-            }, 'json');
-            
+
+                // Display the result
+                document.getElementById("result").innerHTML = output;
+                document.getElementById("result").style.display = "block";
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                const output = '<div class="error">An error occurred while submitting the form. Please try again later.</div>';
+                document.getElementById("result").innerHTML = output;
+                document.getElementById("result").style.display = "block";
+            }
         }
-        
-        return false;
+
+        // Reset border colors on keyup
+        document.querySelectorAll("#contact_form input, #contact_form textarea, #contact_form select").forEach(input => {
+            input.addEventListener("keyup", function () {
+                input.style.borderColor = '';
+                document.getElementById("result").style.display = "none";
+            });
+        });
     });
-    
-    //reset previously set border colors and hide all message on .keyup()
-    $("#contact_form input, #contact_form textarea").keyup(function(){
-        $("#contact_form input, #contact_form textarea").css('border-color', '');
-        $("#result").slideUp();
-    });
-    
 });
