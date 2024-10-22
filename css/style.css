@@ -9574,9 +9574,14 @@ a.portfolio-5-link:hover .portfolio-5-title span{
 
 .footer{
      font-size: 16px;
+     color: #fff;
+}
+.footer p{
+     color: #fff;
 }
 .footer a{
     transition: all 0.17s var(--ease-default);
+    color: #fff;
 }
 .footer:not(.light-content) a:hover{
     text-decoration: none;
@@ -9584,6 +9589,7 @@ a.portfolio-5-link:hover .portfolio-5-title span{
 }
 .footer-text a{
     text-decoration: none;
+    color: #fff;
 }
 footer:not(.light-content) .text-gray a{
     color: var(--color-gray-1);
@@ -9665,7 +9671,7 @@ footer:not(.light-content) .text-gray a:hover{
 }
 .fw-menu li a{
     text-decoration: none;
-    color: var(--color-gray-1);
+    color: #fff;
 }
 .fw-menu svg{
     position: relative;
