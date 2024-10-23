@@ -8872,6 +8872,9 @@ a.portfolio-5-link:hover .portfolio-5-title span{
     flex-direction: column;
     padding: 35px 40px;
 }
+.post-prev-3-intro a{
+    background: #d6554e;
+}
 .post-prev-3-title{
     margin-bottom: 15px;
     font-size: 22px;
