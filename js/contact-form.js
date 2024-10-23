@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const user_name = document.querySelector('input[name=name]').value;
         const user_email = document.querySelector('input[name=email]').value;
         const user_message = document.querySelector('textarea[name=message]').value;
-        const selected_service = document.querySelector('select[name=services]').value; // New select field
+        const selected_service = document.querySelector('select[name=services]').value;
 
         // Simple validation
         let proceed = true;
@@ -32,11 +32,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // Proceed if validation passes
         if (proceed) {
             const formData = {
-                access_key: "a0163d58-870e-43f3-9ec8-fa7b8d9c5ab1", // Replace this with your actual access key
+                access_key: "a0163d58-870e-43f3-9ec8-fa7b8d9c5ab1",
                 userName: user_name,
                 userEmail: user_email,
                 userMessage: user_message,
-                selectedService: selected_service, // Add selected service to form data
+                selectedService: selected_service,
             };
 
             try {

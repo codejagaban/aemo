@@ -6584,7 +6584,7 @@ img.services-image{
     display: block;
     width: 1em;
     height: 1em;
-    fill: currentColor;
+    /* fill: currentColor; */
 }
 .alt-features-title{
     margin-bottom: 11px;
@@ -6661,6 +6661,11 @@ img.services-image{
    Numbers
    ============================== */
 
+.achievements .number-title{
+    font-size: 36px!important;
+    font-weight: 500;
+    line-height: 1;
+}
 .number-title{
     font-size: 80px;
     font-weight: 500;
