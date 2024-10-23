@@ -8846,7 +8846,7 @@ a.portfolio-5-link:hover .portfolio-5-title span{
 .post-prev-3-img{
     flex-shrink: 0;
     position: relative;
-    min-width: 39.6825%;    
+    min-width: 45%;    
     overflow: hidden;
 }
 .post-prev-3-img a{
@@ -8870,7 +8870,7 @@ a.portfolio-5-link:hover .portfolio-5-title span{
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 35px 40px;
+    padding: 35px 20px;
 }
 .post-prev-3-intro a{
     background: #d6554e;
